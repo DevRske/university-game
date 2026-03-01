@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float sprintMultiplier = 2f;
     private Rigidbody2D body;
     private Vector2 currentInput;
@@ -15,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+    }
+    private void Reset()
+    {
+        body = GetComponent<Rigidbody2D>();
+
+        if (body != null)
+            body.gravityScale = 0f;
     }
 
     private void FixedUpdate()
