@@ -1,21 +1,35 @@
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace TopDown.Movement
-{
-    [RequireComponent(typeof(PlayerInput))]
-    public class PlayerMovement : Mover
-    {
-        private void OnMove(InputValue value)
-        {
-            Vector3 playerInput = new Vector3(value.Get<Vector2>().x, value.Get<Vector2>().y, 0);
-            currentInput = playerInput;
-        }
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerInput))]
 
-        private void OnSprint(InputValue value)
-        {
-            isSprinting = value.isPressed;
-        }
+public class PlayerMovement : MonoBehaviour
+{
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float sprintMultiplier = 2f;
+    private Rigidbody2D body;
+    private Vector2 currentInput;
+    private bool isSprinting;
+
+    private void Awake()
+    {
+        body = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        float currentSpeed = isSprinting ? movementSpeed * sprintMultiplier : movementSpeed;
+        body.linearVelocity = currentInput * currentSpeed;
+    }
+
+    private void OnMove(InputValue value)
+    {
+        currentInput = value.Get<Vector2>().normalized;
+    }
+
+    private void OnSprint(InputValue value)
+    {
+        isSprinting = value.isPressed;
     }
 }
