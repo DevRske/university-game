@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerShoot : MonoBehaviour
+public class WeaponController : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float spawnOffset = 1f;
@@ -17,7 +17,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if (projectilePrefab == null)
         {
-            Debug.LogWarning("Projectile prefab is not assigned in PlayerShoot!");
+            Debug.LogWarning("Projectile prefab is not assigned in WeaponController!");
             return;
         }
 
