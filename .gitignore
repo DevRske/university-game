@@ -101,3 +101,8 @@ InitTestScene*.unity*
 
 # AI Agent Guidelines (Vilius)
 AGENTS.md 
+
+# Visual studio stuff
+.vscode
+.vsconfig
+/university-game.slnx
