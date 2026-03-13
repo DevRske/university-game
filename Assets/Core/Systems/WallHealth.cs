@@ -1,5 +1,3 @@
-using System.Data;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class WallHealth : MonoBehaviour, IDamageable
@@ -44,9 +42,9 @@ public class WallHealth : MonoBehaviour, IDamageable
             case WallType.PaperSoft:
                 return true; // Can take damage from bullets
             case WallType.StructuralSoft:
-                return false; // Can take damage from bullets
+                return false; // Cannot take damage from bullets
             case WallType.HardWall:
-                return false;
+                return false; // Cannot take damage from bullets
             case WallType.Reinforced:
                 return false; // Cannot take damage from bullets
             default:
