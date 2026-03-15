@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2267060299728201667}
   - component: {fileID: 5943126550921381495}
   - component: {fileID: 341949146099153156}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall_StructuralSoft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
