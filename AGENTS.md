@@ -6,6 +6,7 @@ Welcome to the **[Working Title: Tactical Top-Down]** repository! This document 
 - **The "Ask First" Rule**: If a task description is vague, or if a design decision isn't explicitly covered in `Docs/`, **DO NOT GUESS**. 
 - **Stop and ask** for clarification before generating code. State what you believe the goal is and provide 2-3 brief options for how to proceed.
 - **State Assumptions**: If you must make a minor technical assumption to stay within the current sprint's scope, you must explicitly list that assumption at the very top of your response.
+- **Commit and Explain**: After each task, commit your changes and explain what you did and why.
 
 ## 1. Project Context & Mindset
 - **Team**: 4 university students.
