@@ -21,6 +21,8 @@ public class WallHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
+        if (currentHealth <= 0) return;
+
         if (!CanTakeBulletDamage())
         {
             return; // Ignore damage if the wall cannot take bullet damage
@@ -51,6 +53,7 @@ public class WallHealth : MonoBehaviour, IDamageable
                 return false;
         }
     }
-    public float GetHealthPercentage() => currentHealth / maxHealth;
-    public float GetDamageThreshold() => damageThreshold / maxHealth;
+
+    public float CurrentHealth => currentHealth;
+    public float DamageThreshold => damageThreshold;
 }

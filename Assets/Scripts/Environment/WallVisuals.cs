@@ -31,7 +31,7 @@ public class WallVisuals : MonoBehaviour
 
     private void HandleDamaged()
     {
-        if (wallHealth.GetHealthPercentage() <= wallHealth.GetDamageThreshold())
+        if (wallHealth.CurrentHealth <= wallHealth.DamageThreshold)
         {
             spriteRenderer.color = damagedColor;
         }
