@@ -136,7 +136,7 @@ MonoBehaviour:
   barrelOffset: {x: 0, y: 0}
   hitLayers:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 128
   lineRenderer: {fileID: 3254303036147431160}
   muzzleFlash: {fileID: 1012544647358393046}
   lineDuration: 0.05
