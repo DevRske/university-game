@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3346576264886664287}
   - component: {fileID: 3524377842917832707}
   - component: {fileID: 63212763321690027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall_PaperSoft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
