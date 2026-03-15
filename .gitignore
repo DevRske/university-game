@@ -101,4 +101,5 @@ InitTestScene*.unity*
 # Visual studio stuff
 .vscode
 .vsconfig
-/university-game.slnx
+*.slnx
+*.sln
