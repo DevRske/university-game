@@ -22,14 +22,6 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private AudioClip gunshotClip;
 
     private float nextFireTime = 0f;
-    private Vector2 AimDirection
-    {
-        get
-        {
-            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            return (mouseWorld - (Vector2)transform.position).normalized;
-        }
-    }
 
     private void Awake()
     {
@@ -51,7 +43,8 @@ public class PlayerShooting : MonoBehaviour
         nextFireTime = Time.time + fireRate;
 
         Vector2 origin = (Vector2)transform.position + (Vector2)transform.TransformDirection(barrelOffset);
-        Vector2 direction = AimDirection;
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 direction = (mouseWorld - origin).normalized;
 
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, range, hitLayers);
 
@@ -78,7 +71,7 @@ public class PlayerShooting : MonoBehaviour
         }
         PlayGunshotAudio();
         StartCoroutine(ShowLineFlash(origin, hitPoint));
-        StartCoroutine(ShowMuzzleFlash());
+        StartCoroutine(ShowMuzzleFlash(origin));
     }
 
     private IEnumerator ShowLineFlash(Vector2 start, Vector2 end)
@@ -94,10 +87,11 @@ public class PlayerShooting : MonoBehaviour
         lineRenderer.enabled = false;
     }
 
-    private IEnumerator ShowMuzzleFlash()
+    private IEnumerator ShowMuzzleFlash(Vector2 barrelPosition)
     {
         if (muzzleFlash == null) yield break;
 
+        muzzleFlash.transform.position = barrelPosition;
         muzzleFlash.enabled = true;
 
         yield return new WaitForSeconds(lineDuration);
