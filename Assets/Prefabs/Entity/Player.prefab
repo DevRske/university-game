@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f6a7b8c9d0e1f2a3b4c5d6e7f8a910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVision
-  _viewRadius: 10
+  _viewRadius: 50
   _viewAngle: 90
   _rayCount: 300
   _occlusionLayer:
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   damage: 25
-  range: 20
+  range: 50
   fireRate: 0.2
   barrelOffset: {x: 0, y: 1}
   hitLayers:
