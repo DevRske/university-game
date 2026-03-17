@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class BombSite : MonoBehaviour
 {
     [SerializeField] private string siteID = "A";
