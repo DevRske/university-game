@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
 
         currentHealth = Mathf.Max(currentHealth - amount, 0f); // Prevents from health going below zero
+        Debug.Log($"[PlayerHealth] {gameObject.name} took {amount} damage. Current Health: {currentHealth}");
 
         onHealthChanged?.Invoke(currentHealth, maxHealth);
 
@@ -36,6 +37,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void OnDeath()
     {
         State = PlayerState.Eliminated;
+        Debug.Log($"[PlayerHealth] {gameObject.name} has been eliminated.");
         gameObject.SetActive(false);
     }
 }
