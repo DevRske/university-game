@@ -22,6 +22,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private AudioClip gunshotClip;
 
     private float nextFireTime = 0f;
+    private AmmoSystem ammoSystem;
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class PlayerShooting : MonoBehaviour
 
         if (muzzleFlash != null)
             muzzleFlash.enabled = false;
+
+        ammoSystem = GetComponent<AmmoSystem>();
     }
 
     private void Update()
@@ -40,6 +43,10 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot()
     {
+        // Check if we have ammo before firing
+        if (ammoSystem != null && !ammoSystem.CanFire())
+            return;
+
         nextFireTime = Time.time + fireRate;
 
         Vector2 origin = (Vector2)transform.position + (Vector2)transform.TransformDirection(barrelOffset);
@@ -69,6 +76,9 @@ public class PlayerShooting : MonoBehaviour
                 damageable.TakeDamage(damage);
             }
         }
+        // Consume ammo after successful shot
+        if (ammoSystem != null)
+            ammoSystem.ConsumeAmmo();
         PlayGunshotAudio();
         StartCoroutine(ShowLineFlash(origin, hitPoint));
         StartCoroutine(ShowMuzzleFlash(origin));
