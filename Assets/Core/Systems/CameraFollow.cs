@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Refined camera follow component. Attach to the scene camera.
-/// Follows an assigned target with optional map bounds clamping and configurable zoom.
-/// Place under Assets/Scripts/ — not in Core/Systems/.
-/// </summary>
 public class CameraFollow : MonoBehaviour
 {
     [Header("Target")]
@@ -23,10 +18,6 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private Vector2 boundsMax = new Vector2(50f, 50f);
 
     private Camera _camera;
-
-    // -------------------------------------------------------------------------
-    // Unity lifecycle
-    // -------------------------------------------------------------------------
 
     private void Awake()
     {
@@ -62,13 +53,6 @@ public class CameraFollow : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
     }
 
-    // -------------------------------------------------------------------------
-    // Public API — change target at runtime
-    // -------------------------------------------------------------------------
-
-    /// <summary>
-    /// Assigns a new follow target at runtime (e.g. when switching controlled player).
-    /// </summary>
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
@@ -82,10 +66,6 @@ public class CameraFollow : MonoBehaviour
     /// </summary>
     public Transform GetTarget() => target;
 
-    // -------------------------------------------------------------------------
-    // Zoom
-    // -------------------------------------------------------------------------
-
     /// <summary>
     /// Applies the configured orthographic size to the camera.
     /// Call again if you change orthographicSize at runtime.
@@ -96,18 +76,12 @@ public class CameraFollow : MonoBehaviour
             _camera.orthographicSize = orthographicSize;
     }
 
-    /// <summary>
     /// Changes orthographic zoom at runtime.
-    /// </summary>
     public void SetZoom(float size)
     {
         orthographicSize = size;
         ApplyZoom();
     }
-
-    // -------------------------------------------------------------------------
-    // Bounds helpers
-    // -------------------------------------------------------------------------
 
     private Vector3 ClampToBounds(Vector3 position)
     {
