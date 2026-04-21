@@ -1,7 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
 public class PlayerHealthHud : MonoBehaviour
@@ -89,24 +88,8 @@ public class PlayerHealthHud : MonoBehaviour
             return explicitPlayerHealth;
         }
 
-        PlayerInput[] playerInputs = FindObjectsByType<PlayerInput>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-
-        foreach (PlayerInput playerInput in playerInputs)
-        {
-            if (playerInput == null || !playerInput.gameObject.activeInHierarchy)
-            {
-                continue;
-            }
-
-            PlayerHealth playerHealth = playerInput.GetComponent<PlayerHealth>();
-
-            if (playerHealth != null)
-            {
-                return playerHealth;
-            }
-        }
-
-        return null;
+        GameObject playerRoot = PlayerHudTargetResolver.ResolveLocalPlayerRoot();
+        return playerRoot != null ? playerRoot.GetComponent<PlayerHealth>() : null;
     }
 
     private void HandleHealthChanged(float currentHealth, float _)

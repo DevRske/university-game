@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 7727456129053778683}
   - component: {fileID: 652940206981218930}
   - component: {fileID: 1763164581599800396}
+  - component: {fileID: 6458123456123456789}
   - component: {fileID: -7501253949529362860}
   - component: {fileID: -2755491708756039336}
   m_Layer: 0
@@ -324,6 +325,20 @@ MonoBehaviour:
   lineDuration: 0.05
   audioSource: {fileID: -7501253949529362860}
   gunshotClip: {fileID: 8300000, guid: 7e1af1bd5a627474ca4e3a54b01e9967, type: 3}
+--- !u!114 &6458123456123456789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317733884917336739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b148abcb8a5c8ae49b57b5f73765893d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 0
 --- !u!82 &-7501253949529362860
 AudioSource:
   m_ObjectHideFlags: 0
