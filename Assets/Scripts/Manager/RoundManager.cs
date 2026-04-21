@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Core.Systems;
 
@@ -31,6 +32,8 @@ public class RoundManager : MonoBehaviour
 
     // Tracks whether a defuse is currently happening so we know whether to enter Overtime when the timer runs out.
     private bool _defuseActive;
+    private bool _timerExpiryPending;
+    private Coroutine _timerExpiryCoroutine;
 
     private void Awake()
     {
@@ -47,7 +50,7 @@ public class RoundManager : MonoBehaviour
 
         if (TimeRemaining <= 0f)
         {
-            HandleTimerExpiry();
+            QueueTimerExpiryResolution();
         }
     }
 
@@ -69,6 +72,7 @@ public class RoundManager : MonoBehaviour
 
         TimeRemaining = roundDuration;
         _defuseActive = false;
+        ClearPendingTimerExpiryResolution();
         Outcome = RoundOutcome.None;
 
         SetState(RoundState.Active);
@@ -129,18 +133,59 @@ public class RoundManager : MonoBehaviour
             return;
         }
 
+        if (outcome == RoundOutcome.None)
+        {
+            Debug.LogWarning("[RoundManager] EndRound called with RoundOutcome.None. Ignored.");
+            return;
+        }
+
+        ClearPendingTimerExpiryResolution();
+        _defuseActive = false;
         Outcome = outcome;
         SetState(RoundState.Ended);
         Debug.Log($"[RoundManager] Round ended. Outcome: {outcome}");
         OnRoundEnded?.Invoke(outcome);
     }
 
+    private void QueueTimerExpiryResolution()
+    {
+        if (_timerExpiryPending) return;
+
+        _timerExpiryPending = true;
+        _timerExpiryCoroutine = StartCoroutine(ResolveTimerExpiryAtEndOfFrame());
+    }
+
+    private IEnumerator ResolveTimerExpiryAtEndOfFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        _timerExpiryCoroutine = null;
+
+        if (!_timerExpiryPending || State != RoundState.Active)
+        {
+            yield break;
+        }
+
+        _timerExpiryPending = false;
+        HandleTimerExpiry();
+    }
+
+    private void ClearPendingTimerExpiryResolution()
+    {
+        _timerExpiryPending = false;
+
+        if (_timerExpiryCoroutine == null) return;
+
+        StopCoroutine(_timerExpiryCoroutine);
+        _timerExpiryCoroutine = null;
+    }
+
     private void HandleTimerExpiry()
     {
         if (_defuseActive)
         {
-            // The timer ran out but a defuse is happening right now.
-            // We move to Overtime and stop the timer tick, then wait for the defuse to either complete or get cancelled.
+            // The timer expired and a defuse is still active at the end of the frame.
+            // We move to Overtime and wait for the defuse to either complete or get cancelled.
             SetState(RoundState.Overtime);
             Debug.Log("[RoundManager] Timer expired during an active defuse. Entering Overtime.");
         }
