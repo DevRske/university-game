@@ -59,11 +59,10 @@ public class AmmoSystem : MonoBehaviour
         if (currentReserveAmmo == 0)
             return;
 
-        int ammoNeeded = magazineSize - currentMagazine;
-        int ammoToTransfer = Mathf.Min(ammoNeeded, currentReserveAmmo);
+        int loadedRounds = Mathf.Min(magazineSize, currentReserveAmmo);
 
-        currentMagazine += ammoToTransfer;
-        currentReserveAmmo -= ammoToTransfer;
+        currentReserveAmmo -= loadedRounds;
+        currentMagazine = loadedRounds;
 
         onAmmoChanged?.Invoke(currentMagazine, currentReserveAmmo);
         onReload?.Invoke();
