@@ -1,10 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< SCRUM62_Round_Life
+guid: cd6e64e6d269648529d813d7ab16396e
+TextureImporter:
+  internalIDToNameTable: []
+=======
 guid: fce3302a48cc2a341b815360fa60a11c
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: -3784835388342635425
     second: player_sprite_128x128_centered_0
+>>>>>>> dev
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -69,6 +75,12 @@ TextureImporter:
   applyGammaDecoding: 0
   swizzle: 50462976
   cookieLightType: 0
+<<<<<<< SCRUM62_Round_Life
+  platformSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites: []
+=======
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -121,6 +133,7 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+>>>>>>> dev
     outline: []
     customData: 
     physicsShape: []
@@ -134,8 +147,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
+<<<<<<< SCRUM62_Round_Life
+    nameFileIdTable: {}
+=======
     nameFileIdTable:
       player_sprite_128x128_centered_0: -3784835388342635425
+>>>>>>> dev
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
