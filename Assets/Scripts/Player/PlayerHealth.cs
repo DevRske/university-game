@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [SerializeField] private float currentHealth;
 
     public PlayerState State { get; private set; } = PlayerState.Active;
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => maxHealth;
 
     public event Action<float, float> onHealthChanged;
 
