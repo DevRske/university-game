@@ -38,4 +38,16 @@ public class SpawnManager : MonoBehaviour
 
         return matching[Random.Range(0, matching.Count)];
     }
+
+    // Moves each participant to a random spawn point that matches their team side.
+    // Called by RoundRestartController after health has been reset so participants
+    // start the new round at a valid position.
+    public void RespawnParticipants(List<RoundParticipant> participants)
+    {
+        foreach (RoundParticipant participant in participants)
+        {
+            if (participant == null) continue;
+            TryPlaceAtSpawn(participant.transform, participant.TeamSide);
+        }
+    }
 }
