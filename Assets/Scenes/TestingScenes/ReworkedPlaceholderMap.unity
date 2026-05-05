@@ -9091,6 +9091,8 @@ GameObject:
   - component: {fileID: 2056135152}
   - component: {fileID: 2056135153}
   - component: {fileID: 2056135154}
+  - component: {fileID: 2056135155}
+  - component: {fileID: 2056135156}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -9177,6 +9179,33 @@ MonoBehaviour:
   - {fileID: 76000000000000005}
   - {fileID: 76000000000000005}
   spawnedActorsParent: {fileID: 0}
+--- !u!114 &2056135155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056135149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2794394eeec65b439ca3c8844443eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoundEliminationTracker
+  roundManager: {fileID: 2056135153}
+--- !u!114 &2056135156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056135149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab2b76d67608a44792dedb76255f21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoundRestart
+  roundManager: {fileID: 2056135153}
+  restartDelay: 5
 --- !u!1001 &2077700000
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,6 +21,6 @@ public class RoundParticipant : MonoBehaviour
 
     private void Awake()
     {
-        playerHealth = GetComponent<PlayerHealth>();
+        playerHealth = GetComponentInChildren<PlayerHealth>();
     }
 }
