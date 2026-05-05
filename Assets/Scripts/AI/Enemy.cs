@@ -41,6 +41,11 @@ public class Enemy : MonoBehaviour
     private PlayerHealth health;
     private float nextFireTime;
 
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
+
     private void Awake()
     {
         // Disable visuals on awake — same timing as PlayerShooting.

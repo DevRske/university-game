@@ -14,6 +14,11 @@ public class RoundParticipant : MonoBehaviour
 
     public bool IsEligibleForDefuse => gameObject.activeInHierarchy && !IsEliminated;
 
+    public void SetTeamSide(TeamSide side)
+    {
+        teamSide = side;
+    }
+
     private void Awake()
     {
         playerHealth = GetComponent<PlayerHealth>();
