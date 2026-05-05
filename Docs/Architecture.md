@@ -93,3 +93,233 @@ Assets/
 - **Prefabs Only:** We will build new features in our respective `_Sandbox/` folders, attaching scripts to Prefabs. Once tested, the Prefab is moved to the `Prefabs/` folder and merged via PR.
 - **Optimization:** As agreed upon in our WoW, we will avoid `FindObjectsOfType` or `GetComponent` in `Update()`. All component references must be cached in `Awake()`.
 - **Exposed Variables:** We will use `[SerializeField] private` for all customizable variables. No public variables or magic numbers, maintaining strict encapsulation to ensure our codebase remains clean and easy for the whole team (and module graders) to read.
+
+---
+
+## 5. Current Program Architecture UML
+
+The current implementation is a local playable-session slice of the larger planned architecture above. It is organised around prefab-level MonoBehaviour components: `SessionBootstrap` wires the scene together once, `RoundManager` owns round state and timer events, player and enemy actors are composed from focused movement/combat/health scripts, bomb-site defuse logic reports into the round system, and HUD scripts subscribe to gameplay events instead of driving gameplay state. This matches the SRP direction in `WoW.md`, but it is not yet the full networked architecture described in sections 2 and 3: there is no implemented `NetworkMatchManager`, synced destruction manager, network audio ripple system, or loadout manager in the current script set.
+
+```mermaid
+classDiagram
+    direction LR
+
+    namespace CoreSystems {
+        class IDamageable {
+            <<interface>>
+            +TakeDamage(float amount)
+        }
+        class RoundState {
+            <<enumeration>>
+            Initialising
+            Active
+            Overtime
+            Ended
+        }
+        class RoundOutcome {
+            <<enumeration>>
+            None
+            DefendersWin
+            AttackersWin
+        }
+        class TeamSide {
+            <<enumeration>>
+            Attacker
+            Defender
+        }
+        class PlayerState {
+            <<enumeration>>
+            Active
+            Eliminated
+        }
+        class WallType {
+            <<enumeration>>
+            PaperSoft
+            StructuralSoft
+            HardWall
+            Reinforced
+        }
+    }
+
+    namespace Managers {
+        class SessionBootstrap {
+            +Start()
+            -SpawnPlayer()
+            -SpawnBots(Transform)
+            -TryRegisterParticipant(GameObject, TeamSide)
+        }
+        class SpawnManager {
+            +TryPlaceAtSpawn(Transform, TeamSide) bool
+            +GetSpawnPoint(TeamSide) SpawnPoint
+        }
+        class RoundManager {
+            +State RoundState
+            +Outcome RoundOutcome
+            +TimeRemaining float
+            +StartRound()
+            +NotifyDefuseStarted()
+            +NotifyDefuseCancelled()
+            +EndRound(RoundOutcome)
+            +OnRoundStateChanged
+            +OnRoundEnded
+            +OnTimerTick
+        }
+        class BombSiteRegistry {
+            +Instance BombSiteRegistry
+            +ActiveBombSite BombSite
+            +GetActiveSite() BombSite
+        }
+        class BombSiteDefuseRoundReporter {
+            -HandleDefuseStarted(RoundParticipant)
+            -HandleDefuseCancelled(RoundParticipant)
+        }
+    }
+
+    namespace PlayerActor {
+        class RoundParticipant {
+            +TeamSide TeamSide
+            +IsEliminated bool
+            +IsEligibleForDefuse bool
+            +SetTeamSide(TeamSide)
+        }
+        class PlayerHealth {
+            +State PlayerState
+            +CurrentHealth float
+            +MaxHealth float
+            +TakeDamage(float)
+            +onHealthChanged
+        }
+        class PlayerMovement {
+            -FixedUpdate()
+            -OnMove(InputValue)
+            -OnSprint(InputValue)
+        }
+        class PlayerRotation {
+            -Update()
+            -ProcessRotation()
+        }
+        class PlayerShooting {
+            -Update()
+            -Shoot()
+        }
+        class AmmoSystem {
+            +CanFire() bool
+            +ConsumeAmmo()
+            +TryReload()
+            +onAmmoChanged
+            +onReload
+        }
+        class BombDefuseInteractor {
+            -Update()
+            -ResolveTargetSite() BombSiteDefuseInteraction
+        }
+        class PlayerVision {
+            -LateUpdate()
+            -DrawVisionMesh()
+        }
+    }
+
+    namespace AI {
+        class Enemy {
+            +SetTarget(Transform)
+            -Update()
+            -MoveTowardPlayer()
+            -TryShoot()
+        }
+    }
+
+    namespace Environment {
+        class SpawnPoint {
+            +TeamSide TeamSide
+        }
+        class BombSite {
+            +SiteID string
+            +OnBombPlanted()
+            +OnBombDefused()
+        }
+        class BombSiteDefuseInteraction {
+            +State BombSiteDefuseState
+            +IsDefuseActive bool
+            +CurrentProgressNormalized float
+            +TryStartDefuse(RoundParticipant) bool
+            +TickDefuse(RoundParticipant, float)
+            +CancelDefuse(RoundParticipant)
+            +OnDefuseStarted
+            +OnDefuseCancelled
+            +OnDefuseCompleted
+            +OnDefuseProgressChanged
+        }
+        class BombSiteVisual
+        class WallHealth {
+            +CurrentHealth float
+            +DamageThreshold float
+            +TakeDamage(float)
+            +OnDamaged
+            +OnDestroyed
+        }
+        class WallVisuals {
+            -HandleDamaged()
+            -HandleDestroyed()
+        }
+    }
+
+    namespace UI {
+        class RoundTimerHud {
+            -HandleTimerTick(float)
+        }
+        class RoundOutcomeHud {
+            -HandleRoundEnded(RoundOutcome)
+        }
+        class PlayerHealthHud {
+            +SetPlayerHealth(PlayerHealth)
+            -HandleHealthChanged(float, float)
+        }
+        class PlayerAmmoHud {
+            -HandleAmmoChanged(int, int)
+        }
+        class PlayerHudTargetResolver {
+            +ResolveLocalPlayerRoot() GameObject
+        }
+    }
+
+    IDamageable <|.. PlayerHealth
+    IDamageable <|.. WallHealth
+
+    SessionBootstrap --> RoundManager : starts round
+    SessionBootstrap --> SpawnManager : places player
+    SessionBootstrap --> Enemy : instantiates bots
+    SessionBootstrap --> RoundParticipant : registers teams
+    SpawnManager --> SpawnPoint : selects by side
+
+    RoundManager --> RoundState : owns
+    RoundManager --> RoundOutcome : reports
+
+    RoundParticipant --> TeamSide : stores
+    RoundParticipant --> PlayerHealth : reads state
+    PlayerHealth --> PlayerState : owns
+    PlayerShooting --> AmmoSystem : consumes ammo
+    PlayerShooting --> IDamageable : raycast damage
+    Enemy --> PlayerHealth : requires
+    Enemy --> RoundParticipant : requires
+    Enemy --> IDamageable : raycast damage
+
+    BombDefuseInteractor --> BombSiteRegistry : active site lookup
+    BombDefuseInteractor --> BombSiteDefuseInteraction : starts/ticks/cancels
+    BombSiteRegistry --> BombSite : active site
+    BombSiteDefuseInteraction --> BombSite : completes defuse
+    BombSiteDefuseInteraction --> RoundParticipant : validates attacker
+    BombSiteDefuseRoundReporter --> BombSiteDefuseInteraction : listens
+    BombSiteDefuseRoundReporter --> RoundManager : reports start/cancel
+
+    WallHealth --> WallType : damage rules
+    WallVisuals --> WallHealth : listens
+
+    RoundTimerHud --> RoundManager : subscribes timer
+    RoundOutcomeHud --> RoundManager : subscribes outcome
+    PlayerHealthHud --> PlayerHealth : subscribes health
+    PlayerAmmoHud --> AmmoSystem : subscribes ammo
+    PlayerHealthHud --> PlayerHudTargetResolver : resolves player
+    PlayerAmmoHud --> PlayerHudTargetResolver : resolves player
+```
+
+One important integration gap to track in the next gameplay task: `BombSiteDefuseInteraction` raises `OnDefuseCompleted`, but the current `BombSiteDefuseRoundReporter` only forwards defuse start and cancel events to `RoundManager`. Until completion is forwarded to `RoundManager.EndRound(RoundOutcome.AttackersWin)`, the implemented code does not fully satisfy the GDD rule that attackers win by defusing the bomb.
