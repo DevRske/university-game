@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     // Same muzzle flash SpriteRenderer as the player — drag it here.
     [SerializeField] private SpriteRenderer muzzleFlash;
+    [SerializeField] private SoundRippleEffect soundRipplePrefab;
     [SerializeField] private float lineDuration = 0.05f;
 
     [Header("Audio")]
@@ -148,6 +149,7 @@ public class Enemy : MonoBehaviour
         }
 
         PlayGunshotAudio();
+        SpawnSoundRipple(rayOrigin);
         StartCoroutine(ShowLineFlash(rayOrigin, endPoint));
         StartCoroutine(ShowMuzzleFlash(rayOrigin));
     }
@@ -181,5 +183,12 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(lineDuration);
 
         muzzleFlash.enabled = false;
+    }
+
+    private void SpawnSoundRipple(Vector2 position)
+    {
+        if (soundRipplePrefab == null) return;
+
+        Instantiate(soundRipplePrefab, position, Quaternion.identity);
     }
 }
