@@ -215,7 +215,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -200
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.2747419, g: 0.9245283, b: 0.30321518, a: 1}
@@ -9469,6 +9469,8 @@ GameObject:
   - component: {fileID: 2056135152}
   - component: {fileID: 2056135154}
   - component: {fileID: 2056135153}
+  - component: {fileID: 2056135155}
+  - component: {fileID: 2056135156}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged

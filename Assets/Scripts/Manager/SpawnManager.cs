@@ -6,6 +6,7 @@ using Core.Systems;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private List<SpawnPoint> spawnPoints = new();
+    [SerializeField] private float minimumSpawnSeparation = 1f;
 
     public bool TryPlaceAtSpawn(Transform target, TeamSide side)
     {
