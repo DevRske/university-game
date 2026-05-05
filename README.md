@@ -1,4 +1,4 @@
-# [Working Title: Tactical Top-Down]
+# CQB Masters
 
 A 3v3 tactical top-down shooter built in Unity for a university module.
 
