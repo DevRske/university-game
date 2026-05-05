@@ -35,8 +35,6 @@ public class RoundManager : MonoBehaviour
     private bool _timerExpiryPending;
     private Coroutine _timerExpiryCoroutine;
 
-    public bool CanRestart => State == RoundState.Ended;
-
     private void Awake()
     {
         TimeRemaining = roundDuration;
@@ -79,23 +77,6 @@ public class RoundManager : MonoBehaviour
 
         SetState(RoundState.Active);
         Debug.Log($"[RoundManager] Round started. Duration: {roundDuration}s");
-    }
-
-    public void RestartRound()
-    {
-        if (!CanRestart)
-        {
-            Debug.LogWarning($"[RoundManager] RestartRound called in state {State}. Ignored.");
-            return;
-        }
-
-        TimeRemaining = roundDuration;
-        _defuseActive = false;
-        ClearPendingTimerExpiryResolution();
-        Outcome = RoundOutcome.None;
-
-        SetState(RoundState.Active);
-        Debug.Log($"[RoundManager] Round restarted. Duration: {roundDuration}s");
     }
 
     // Call this from your defuse system when a player begins a defuse attempt.

@@ -12,14 +12,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public float MaxHealth => maxHealth;
 
     public event Action<float, float> onHealthChanged;
-    public event Action onEliminated;
-
-    public void ResetHealth()
-    {
-        currentHealth = maxHealth;
-        State = PlayerState.Active;
-        onHealthChanged?.Invoke(currentHealth, maxHealth);
-    }
 
     private void Awake()
     {
@@ -48,7 +40,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         State = PlayerState.Eliminated;
         Debug.Log($"[PlayerHealth] {gameObject.name} has been eliminated.");
-        onEliminated?.Invoke();
         gameObject.SetActive(false);
     }
 }
