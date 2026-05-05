@@ -1,16 +1,7 @@
 fileFormatVersion: 2
-<<<<<<< SCRUM62_Round_Life
 guid: cd6e64e6d269648529d813d7ab16396e
 TextureImporter:
   internalIDToNameTable: []
-=======
-guid: fce3302a48cc2a341b815360fa60a11c
-TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -3784835388342635425
-    second: player_sprite_128x128_centered_0
->>>>>>> dev
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -43,16 +34,16 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,22 +63,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
-<<<<<<< SCRUM62_Round_Life
-  platformSettings: []
-  spriteSheet:
-    serializedVersion: 2
-    sprites: []
-=======
+  cookieLightType: 2
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,35 +95,12 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: player_sprite_128x128_centered_0
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 20
-        width: 61
-        height: 89
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f5472886440997bc0800000000000000
-      internalID: -3784835388342635425
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
->>>>>>> dev
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -147,12 +109,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-<<<<<<< SCRUM62_Round_Life
     nameFileIdTable: {}
-=======
-    nameFileIdTable:
-      player_sprite_128x128_centered_0: -3784835388342635425
->>>>>>> dev
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
