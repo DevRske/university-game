@@ -176,6 +176,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   lineRenderer: {fileID: 939920442626232575}
   muzzleFlash: {fileID: 521559144723634802}
+  soundRipplePrefab: {fileID: 114000, guid: 8a4374d724d44d54b8e63321b01c88d2, type: 3}
   lineDuration: 0.05
   audioSource: {fileID: 5327400816019591364}
   gunshotClip: {fileID: 8300000, guid: 7e1af1bd5a627474ca4e3a54b01e9967, type: 3}

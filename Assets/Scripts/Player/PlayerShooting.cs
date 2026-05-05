@@ -15,6 +15,7 @@ public class PlayerShooting : MonoBehaviour
     [Header("Visual Feedback")]
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private SpriteRenderer muzzleFlash;
+    [SerializeField] private SoundRippleEffect soundRipplePrefab;
     [SerializeField] private float lineDuration = 0.05f;
 
     [Header("Audio")]
@@ -80,6 +81,7 @@ public class PlayerShooting : MonoBehaviour
         if (ammoSystem != null)
             ammoSystem.ConsumeAmmo();
         PlayGunshotAudio();
+        SpawnSoundRipple(origin);
         StartCoroutine(ShowLineFlash(origin, hitPoint));
         StartCoroutine(ShowMuzzleFlash(origin));
     }
@@ -113,5 +115,12 @@ public class PlayerShooting : MonoBehaviour
     {
         if (audioSource != null && gunshotClip != null)
             audioSource.PlayOneShot(gunshotClip);
+    }
+
+    private void SpawnSoundRipple(Vector2 position)
+    {
+        if (soundRipplePrefab == null) return;
+
+        Instantiate(soundRipplePrefab, position, Quaternion.identity);
     }
 }
