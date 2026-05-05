@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5859062127855150313}
   - component: {fileID: 4230983021899851754}
   - component: {fileID: 7665494749790918677}
+  - component: {fileID: 5293195086251825155}
   m_Layer: 7
   m_Name: Wall_HardWall
   m_TagString: Untagged
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -170,3 +171,19 @@ MonoBehaviour:
   intactColor: {r: 0.6554765, g: 0.12941174, b: 0.8784314, a: 1}
   damagedColor: {r: 0.3750387, g: 0.21529014, b: 0.7735849, a: 1}
   destroyedColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &5293195086251825155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646771712482140717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Components.NavMeshModifier
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
