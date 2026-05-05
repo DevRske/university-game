@@ -125,6 +125,9 @@ GameObject:
   - component: {fileID: 7727456129053778683}
   - component: {fileID: 652940206981218930}
   - component: {fileID: 1763164581599800396}
+  - component: {fileID: 6458123456123456789}
+  - component: {fileID: 7712345678901234567}
+  - component: {fileID: 7722345678901234568}
   - component: {fileID: -7501253949529362860}
   - component: {fileID: -2755491708756039336}
   m_Layer: 0
@@ -199,9 +202,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd6e64e6d269648529d813d7ab16396e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -255,7 +258,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7727456129053778683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,9 +324,54 @@ MonoBehaviour:
     m_Bits: 128
   lineRenderer: {fileID: 3704514766222853252}
   muzzleFlash: {fileID: 5426963002328494702}
+  soundRipplePrefab: {fileID: 114000, guid: 8a4374d724d44d54b8e63321b01c88d2, type: 3}
   lineDuration: 0.05
   audioSource: {fileID: -7501253949529362860}
   gunshotClip: {fileID: 8300000, guid: 7e1af1bd5a627474ca4e3a54b01e9967, type: 3}
+--- !u!114 &6458123456123456789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317733884917336739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b148abcb8a5c8ae49b57b5f73765893d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 0
+--- !u!114 &7712345678901234567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317733884917336739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0823867f69b96499f39cf4a1f0481e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoundParticipant
+  teamSide: 0
+--- !u!114 &7722345678901234568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317733884917336739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b5648162cabfde4397945fa7afb4926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoSystem
+  magazineSize: 30
+  maxReserveAmmo: 120
+  reloadKey: 32
+  currentMagazine: 0
+  currentReserveAmmo: 0
 --- !u!82 &-7501253949529362860
 AudioSource:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class PlayerShooting : MonoBehaviour
     [Header("Visual Feedback")]
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private SpriteRenderer muzzleFlash;
+    [SerializeField] private SoundRippleEffect soundRipplePrefab;
     [SerializeField] private float lineDuration = 0.05f;
 
     [Header("Audio")]
@@ -22,6 +23,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private AudioClip gunshotClip;
 
     private float nextFireTime = 0f;
+    private AmmoSystem ammoSystem;
 
     private void Awake()
     {
@@ -30,6 +32,8 @@ public class PlayerShooting : MonoBehaviour
 
         if (muzzleFlash != null)
             muzzleFlash.enabled = false;
+
+        ammoSystem = GetComponent<AmmoSystem>();
     }
 
     private void Update()
@@ -40,6 +44,10 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot()
     {
+        // Check if we have ammo before firing
+        if (ammoSystem != null && !ammoSystem.CanFire())
+            return;
+
         nextFireTime = Time.time + fireRate;
 
         Vector2 origin = (Vector2)transform.position + (Vector2)transform.TransformDirection(barrelOffset);
@@ -69,7 +77,11 @@ public class PlayerShooting : MonoBehaviour
                 damageable.TakeDamage(damage);
             }
         }
+        // Consume ammo after successful shot
+        if (ammoSystem != null)
+            ammoSystem.ConsumeAmmo();
         PlayGunshotAudio();
+        SpawnSoundRipple(origin);
         StartCoroutine(ShowLineFlash(origin, hitPoint));
         StartCoroutine(ShowMuzzleFlash(origin));
     }
@@ -103,5 +115,12 @@ public class PlayerShooting : MonoBehaviour
     {
         if (audioSource != null && gunshotClip != null)
             audioSource.PlayOneShot(gunshotClip);
+    }
+
+    private void SpawnSoundRipple(Vector2 position)
+    {
+        if (soundRipplePrefab == null) return;
+
+        Instantiate(soundRipplePrefab, position, Quaternion.identity);
     }
 }
